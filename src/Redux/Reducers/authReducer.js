@@ -1,6 +1,6 @@
 import * as Actions from "../Actions";
 
-const initalState = { username: "", email: "", name: "" };
+const initalState = { username: "", email: "", name: "", authError: "" };
 
 const authReducer = (state = initalState, action) => {
   switch (action.type) {
@@ -11,6 +11,11 @@ const authReducer = (state = initalState, action) => {
         username: action.username,
         email: action.email,
         name: action.name,
+      };
+    case Actions.ERROR_RECEIVED:
+      return {
+        ...state,
+        authError: action.error,
       };
     default:
       return { ...state };

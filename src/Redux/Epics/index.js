@@ -1,4 +1,11 @@
 import { combineEpics } from "redux-observable";
 import { incrementEpic } from "./counterEpic";
+import { logInRequestedEpic, logInReceivedEpic } from "./authEpic";
 
-export default combineEpics(incrementEpic);
+const rootRpic = combineEpics(
+  incrementEpic,
+  logInRequestedEpic,
+  logInReceivedEpic
+);
+
+export default rootRpic;

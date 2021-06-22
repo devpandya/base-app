@@ -1,24 +1,30 @@
 import { ofType } from "redux-observable";
-import { map, switchMap, withLatestFrom } from "rxjs/operators";
-import { ERROR_CODES } from "../../Utility/constants";
+import { map } from "rxjs/operators";
+import { ERROR_CODES, ROUTES } from "../../Utility/constants";
 import * as Actions from "../Actions";
+import { push } from "connected-react-router";
 
-export const logInRequestedEpic = (state$, action$) =>
+export const logInRequestedEpic = (action$) =>
   action$.pipe(
     ofType(Actions.LOGIN_REQUESTED),
-    withLatestFrom(state$),
-    map(([action]) => ({
-      username: action.username,
-      password: action.password,
-    })),
-    switchMap(({ username, password }) => {
+    map((action) => {
       if (
-        username === "dev.pandya.professioanl@gmail.com" &&
-        password === "devPandya"
+        action.username === "dev.pandya.professional@gmail.com" &&
+        action.password === "devPandya"
       ) {
-        return Actions.loginReceived(username, username, "Dev Pandya");
+        return Actions.loginReceived(
+          action.username,
+          action.username,
+          "Dev Pandya"
+        );
       } else {
         return Actions.errorReceived(ERROR_CODES[601]);
       }
     })
+  );
+
+export const logInReceivedEpic = (action$) =>
+  action$.pipe(
+    ofType(Actions.LOGIN_RECEIVED),
+    map(() => push(ROUTES.MAIN))
   );

@@ -7,10 +7,11 @@ export const RESETPASSWORD = "RESETPASSWORD";
 export const CHANGEPASSWORD = "RESETPASSWORD";
 export const ERROR_RECEIVED = "ERROR_RECEIVED";
 
-export const loginRequested = (username, password) => ({
+export const logInRequested = (username, password, remember) => ({
   type: LOGIN_REQUESTED,
-  username,
-  password,
+  username: username,
+  password: password,
+  remember: remember,
 });
 
 export const loginReceived = (username, email, name) => ({
